@@ -35,12 +35,17 @@ const WrapperButton = styled.button`
     justify-content: center;
     align-items: center;
     gap: 0.5rem;
+    &:hover {
+        background-color: #739FFF;
+    }
+    &:active {
+        background-color: #345DD9;
+    }
 
     img {
         width: 1rem;
         height: 1rem;
     }
 `;
-
 
 export default Button;

@@ -5,8 +5,8 @@ import Button from './Button';
 const Header = () => {
     return (
         <WrapperHeader>
-            <h3>회원 목록</h3>
-            <Button children={"추가"} onClick={()=>{}}/>
+            <h2>회원 목록</h2>
+            <Button children={"추가"} onClick={() => { }} />
         </WrapperHeader>
     );
 };
@@ -23,6 +23,11 @@ const WrapperHeader = styled.header`
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
+
+    h2 {
+      font-size: 1.2rem;
+      font-weight: bold;
+    }
 `;
 
 

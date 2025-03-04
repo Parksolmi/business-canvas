@@ -1,23 +1,43 @@
 import React from "react";
 import PropTypes from "prop-types";
 import styled from "styled-components";
+import Input from "./Input";
+import Textarea from "./Textarea";
+import CustomDatePicker from "./CustomDatePicker";
+import Label from "./Label";
 
 const Modal = ({ isOpen, onClose, title, children }) => {
   if (!isOpen) return null;
 
   return (
     <Overlay onClick={onClose}>
-      <ModalContainer onClick={(e) => e.stopPropagation()}>
+      <WrapperModal onClick={(e) => e.stopPropagation()}>
         <ModalHeader>
           <h2>{title}</h2>
-          <CloseButton onClick={onClose}>&times;</CloseButton>
+          <button className="close-button" onClick={onClose}>
+            <img src="/assets/png/close-button.png" alt="close" />
+          </button>
         </ModalHeader>
-        <ModalBody>{children}</ModalBody>
+        <ModalBody>
+          <WrapField>
+            <Label text="이름" isRequired={true} />
+            <Input placeholder="Input" />
+          </WrapField>
+          <WrapField>
+            <Label text="주소" />
+            <Input placeholder="Input" />
+          </WrapField>
+          <WrapField>
+            <Label text="메모" />
+            <Textarea placeholder="Textarea" />
+          </WrapField>
+          <CustomDatePicker />
+        </ModalBody>
         <ModalFooter>
           <CancelButton onClick={onClose}>취소</CancelButton>
           <SaveButton disabled>저장</SaveButton>
         </ModalFooter>
-      </ModalContainer>
+      </WrapperModal>
     </Overlay>
   );
 };
@@ -44,15 +64,15 @@ const Overlay = styled.div`
   z-index: 1000;
 `;
 
-const ModalContainer = styled.div`
+const WrapperModal = styled.div`
   background: white;
   width: 500px;
   max-width: 90%;
   border-radius: 10px;
   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-  padding: 20px;
   display: flex;
   flex-direction: column;
+  position: relative;
 `;
 
 const ModalHeader = styled.div`
@@ -62,26 +82,44 @@ const ModalHeader = styled.div`
   font-size: 1.2rem;
   font-weight: bold;
   padding-bottom: 10px;
-  border-bottom: 1px solid #e3e3e3;
-`;
+  border-bottom: 1px solid var(--colorSplit, #0000000f);
+  padding: 10px;
 
-const CloseButton = styled.button`
-  background: none;
-  border: none;
-  font-size: 1.5rem;
-  cursor: pointer;
+  .close-button {
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+
+    img {
+      width: 20px;
+      height: 20px;
+    }
+  }
 `;
 
 const ModalBody = styled.div`
-  padding: 20px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+
+  padding: 18px 24px;
   flex-grow: 1;
+`;
+
+const WrapField = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
 `;
 
 const ModalFooter = styled.div`
   display: flex;
   justify-content: flex-end;
   gap: 10px;
-  padding-top: 10px;
+  padding: 10px;
+  background: var(--colorFillAlter, #00000005);
+  border-top: 1px solid var(--colorSplit, #0000000f);
 `;
 
 const CancelButton = styled.button`
@@ -97,6 +135,5 @@ const SaveButton = styled.button`
   border: none;
   padding: 8px 16px;
   border-radius: 5px;
-  cursor: not-allowed;
   color: #999;
 `;

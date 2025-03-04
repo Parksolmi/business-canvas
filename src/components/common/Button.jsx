@@ -2,6 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import styled from "styled-components";
 
+//cancel, save, add
 const Button = ({ onClick, children, type = "button", className = "" }) => {
   return (
     <WrapperButton type={type} className={`btn ${className}`} onClick={onClick}>

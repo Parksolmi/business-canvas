@@ -1,70 +1,71 @@
-// import React, { useState } from "react";
-// import ReactDatePicker from "react-datepicker";
-// import "react-datepicker/dist/react-datepicker.css";
-// import styled from "styled-components";
-// import { FaCalendarAlt } from "react-icons/fa"; // 캘린더 아이콘 추가
-
-// const CustomDatePicker = ({ selectedDate, onChange }) => {
-//   const [startDate, setStartDate] = useState(selectedDate);
-
-//   const handleChange = (date) => {
-//     setStartDate(date);
-//     onChange(date);
-//   };
-
-//   return (
-//     <DatePickerWrapper>
-//       <StyledDatePicker
-//         selected={startDate}
-//         onChange={handleChange}
-//         dateFormat="yyyy/MM/dd"
-//         placeholderText="Select date"
-//         popperPlacement="bottom-start"
-//         calendarClassName="custom-calendar"
-//       />
-//       <CalendarIcon />
-//     </DatePickerWrapper>
-//   );
-// };
-
-// export default CustomDatePicker;
-
-// // ✅ Styled Components
-// const DatePickerWrapper = styled.div`
-//   position: relative;
-//   display: flex;
-//   align-items: center;
-//   width: 240px;
-// `;
-
-// const StyledDatePicker = styled(ReactDatePicker)`
-//   width: 100%;
-//   padding: 10px 12px;
-//   border: 1px solid #e3e3e3;
-//   border-radius: 6px;
-//   font-size: 14px;
-//   outline: none;
-//   background-color: white;
-//   cursor: pointer;
-//   font-family: Pretendard, sans-serif;
-
-//   &:focus {
-//     border-color: #4a7cfe;
-//     box-shadow: 0 0 0 2px rgba(74, 124, 254, 0.2);
-//   }
-// `;
-
-// const CalendarIcon = styled(FaCalendarAlt)`
-//   position: absolute;
-//   right: 12px;
-//   color: #aaa;
-//   pointer-events: none;
-//   font-size: 16px;
-// `;
-
-// // ✅ `react-datepicker`의 기본 CSS를 추가로 커스텀하기 위한 스타일
+import React, { useState } from "react";
+import ReactDatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+import styled from "styled-components";
 // import { createGlobalStyle } from "styled-components";
 
+const CustomDatePicker = ({ selectedDate, onChange }) => {
+  const [startDate, setStartDate] = useState(selectedDate);
+
+  const handleChange = (date) => {
+    setStartDate(date);
+    onChange(date);
+  };
+
+  return (
+    <DatePickerWrapper>
+      <StyledDatePicker
+        selected={startDate}
+        onChange={handleChange}
+        dateFormat="yyyy-MM-dd"
+        placeholderText="Select date"
+        popperPlacement="bottom-start"
+        calendarClassName="custom-calendar"
+      />
+      <CalendarIcon src="/assets/png/calendar-icon.png" alt="calendar" />
+    </DatePickerWrapper>
+  );
+};
+
+export default CustomDatePicker;
+
+const DatePickerWrapper = styled.div`
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 240px;
+`;
+
+const StyledDatePicker = styled(ReactDatePicker)`
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid #e3e3e3;
+  border-radius: 6px;
+  font-size: 14px;
+  outline: none;
+  background-color: white;
+  cursor: pointer;
+  font-family: Pretendard, sans-serif;
+
+  &:focus {
+    border-color: #4a7cfe;
+    box-shadow: 0 0 0 2px rgba(74, 124, 254, 0.2);
+  }
+
+  &:hover {
+    border: 1px solid var(--Input-colorPrimary, #4a7cfe);
+  }
+`;
+
+const CalendarIcon = styled.img`
+  position: absolute;
+  right: 50px;
+  color: #aaa;
+  pointer-events: none;
+  width: 1.2rem;
+`;
+
+// ///~~~~~~~~~~~
 // export const DatePickerStyles = createGlobalStyle`
 //   /* 캘린더 컨테이너 */
 //   .react-datepicker {

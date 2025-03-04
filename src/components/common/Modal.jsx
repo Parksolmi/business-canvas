@@ -1,12 +1,14 @@
-import React from "react";
+import React, { useState } from "react";
 import PropTypes from "prop-types";
 import styled from "styled-components";
 import Input from "./Input";
 import Textarea from "./Textarea";
-// import CustomDatePicker from "./CustomDatePicker";
+import CustomDatePicker from "./CustomDatePicker";
 import Label from "./Label";
 
 const Modal = ({ isOpen, onClose, title }) => {
+  const [date, setDate] = useState(null);
+
   if (!isOpen) return null;
 
   return (
@@ -31,7 +33,10 @@ const Modal = ({ isOpen, onClose, title }) => {
             <Label text="메모" />
             <Textarea placeholder="Textarea" />
           </WrapField>
-          {/* <CustomDatePicker selectedDate={date} onChange={setDate} /> */}
+          <WrapField>
+            <Label text="가입일" isRequired={true} />
+            <CustomDatePicker selectedDate={date} onChange={setDate} />
+          </WrapField>
         </ModalBody>
         <ModalFooter>
           <CancelButton onClick={onClose}>취소</CancelButton>

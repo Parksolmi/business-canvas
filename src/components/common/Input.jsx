@@ -1,9 +1,10 @@
 import React from "react";
 import styled from "styled-components";
 
-const Input = ({ type = "text", placeholder = "", value, onChange }) => {
+const Input = ({ type = "text", id, placeholder = "", value, onChange }) => {
   return (
     <StyledInput
+      id={id}
       type={type}
       placeholder={placeholder}
       value={value}
@@ -26,6 +27,15 @@ const StyledInput = styled.input`
 
   &::placeholder {
     color: #999;
+  }
+
+  &:hover {
+    border: 1px solid var(--Input-colorPrimary, #4a7cfe);
+  }
+
+  &:focus {
+    box-shadow: 0px 0px 0px 2px #4a7cfe26;
+    border: 1px solid var(--Input-colorPrimary, #4a7cfe);
   }
 `;
 

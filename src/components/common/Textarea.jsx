@@ -12,8 +12,7 @@ const Textarea = ({ value, onChange, placeholder }) => {
 };
 
 const StyledTextarea = styled.textarea`
-  width: 100%;
-  padding: 5px 0;
+  padding: 5px 12px;
   border-radius: 10px;
   border: 1px solid var(--Input-colorBorder, #e3e3e3);
 
@@ -24,7 +23,16 @@ const StyledTextarea = styled.textarea`
   letter-spacing: 0%;
 
   &::placeholder {
-    padding-left: 12px;
+    color: #999;
+  }
+
+  &:hover {
+    border: 1px solid var(--Input-colorPrimary, #4a7cfe);
+  }
+
+  &:focus {
+    box-shadow: 0px 0px 0px 2px #4a7cfe26;
+    border: 1px solid var(--Input-colorPrimary, #4a7cfe);
   }
 `;
 

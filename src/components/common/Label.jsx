@@ -2,9 +2,9 @@ import React from "react";
 import PropTypes from "prop-types";
 import styled from "styled-components";
 
-const Label = ({ text, isRequired = false, htmlFor, className }) => {
+const Label = ({ text, id, isRequired = false, className }) => {
   return (
-    <StyledLabel htmlFor={htmlFor} className={className}>
+    <StyledLabel htmlFor={id} className={className}>
       {text}
       {isRequired && <span className="required"> *</span>}
     </StyledLabel>
@@ -15,11 +15,6 @@ Label.propTypes = {
   text: PropTypes.string.isRequired,
   htmlFor: PropTypes.string,
   className: PropTypes.string,
-};
-
-Label.defaultProps = {
-  htmlFor: "",
-  className: "",
 };
 
 const StyledLabel = styled.label`

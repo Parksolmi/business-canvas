@@ -3,10 +3,10 @@ import PropTypes from "prop-types";
 import styled from "styled-components";
 import Input from "./Input";
 import Textarea from "./Textarea";
-import CustomDatePicker from "./CustomDatePicker";
+// import CustomDatePicker from "./CustomDatePicker";
 import Label from "./Label";
 
-const Modal = ({ isOpen, onClose, title, children }) => {
+const Modal = ({ isOpen, onClose, title }) => {
   if (!isOpen) return null;
 
   return (
@@ -20,18 +20,18 @@ const Modal = ({ isOpen, onClose, title, children }) => {
         </ModalHeader>
         <ModalBody>
           <WrapField>
-            <Label text="이름" isRequired={true} />
-            <Input placeholder="Input" />
+            <Label text="이름" isRequired={true} id={"name"} />
+            <Input placeholder="Input" id={"name"} />
           </WrapField>
           <WrapField>
-            <Label text="주소" />
-            <Input placeholder="Input" />
+            <Label text="주소" id={"address"} />
+            <Input placeholder="Input" id={"address"} />
           </WrapField>
           <WrapField>
             <Label text="메모" />
             <Textarea placeholder="Textarea" />
           </WrapField>
-          <CustomDatePicker />
+          {/* <CustomDatePicker selectedDate={date} onChange={setDate} /> */}
         </ModalBody>
         <ModalFooter>
           <CancelButton onClick={onClose}>취소</CancelButton>
@@ -46,7 +46,6 @@ Modal.propTypes = {
   isOpen: PropTypes.bool.isRequired,
   onClose: PropTypes.func.isRequired,
   title: PropTypes.string.isRequired,
-  children: PropTypes.node,
 };
 
 export default Modal;

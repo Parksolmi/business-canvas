@@ -2,29 +2,7 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import Checkbox from "../common/Checkbox";
 
-// 더미 데이터
-const members = [
-  {
-    id: 1,
-    name: "John Doe",
-    address: "서울 강남구",
-    memo: "외국인",
-    joinDate: "2024-10-02",
-    job: "개발자",
-    emailConsent: true,
-  },
-  {
-    id: 2,
-    name: "Foo Bar",
-    address: "서울 서초구",
-    memo: "한국인",
-    joinDate: "2024-10-01",
-    job: "PO",
-    emailConsent: false,
-  },
-];
-
-const MemberTable = () => {
+const MemberTable = ({ members }) => {
   const [checked, setChecked] = useState(false);
 
   return (
@@ -91,10 +69,7 @@ const MemberTable = () => {
               <Td>{member.joinDate}</Td>
               <Td>{member.job}</Td>
               <Td>
-                <Checkbox
-                  checked={checked}
-                  onChange={() => setChecked(!checked)}
-                />
+                <Checkbox checked={member.emailAgreement} readOnly={true} />
               </Td>
             </Tr>
           ))}
@@ -162,11 +137,5 @@ const Td = styled.td`
 
   border-right: ${({ $first }) => ($first ? "1px solid #0000000f" : "none")};
 `;
-
-// const Checkbox = styled.input`
-//   cursor: pointer;
-//   width: 18px;
-//   height: 18px;
-// `;
 
 export default MemberTable;

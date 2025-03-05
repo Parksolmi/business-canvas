@@ -2,14 +2,13 @@ import React from "react";
 import PropTypes from "prop-types";
 import styled from "styled-components";
 
-const Checkbox = ({ checked, onChange }) => {
+const Checkbox = ({ checked, onChange, readOnly = false }) => {
   return (
     <WrapperCheckbox>
       <input
         className="hidden-checkbox"
         type="checkbox"
-        checked={checked}
-        onChange={onChange}
+        {...(readOnly ? { defaultChecked: checked } : { checked, onChange })}
       />
       <StyledCheckbox $checked={checked} />
     </WrapperCheckbox>
@@ -17,8 +16,8 @@ const Checkbox = ({ checked, onChange }) => {
 };
 
 Checkbox.propTypes = {
-  checked: PropTypes.bool,
-  onChange: PropTypes.func.isRequired,
+  checked: PropTypes.bool.isRequired,
+  onChange: PropTypes.func,
 };
 
 const WrapperCheckbox = styled.label`

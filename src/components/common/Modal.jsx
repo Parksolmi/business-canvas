@@ -1,18 +1,8 @@
-import React, { useState } from "react";
+import React from "react";
 import PropTypes from "prop-types";
 import styled from "styled-components";
-import Input from "./Input";
-import Textarea from "./Textarea";
-import CustomDatePicker from "./CustomDatePicker";
-import Label from "./Label";
-import Select from "./Select";
-import Checkbox from "./Checkbox";
 
-const Modal = ({ isOpen, onClose, title }) => {
-  const [date, setDate] = useState(null);
-  const [checked, setChecked] = useState(false);
-  const [selectedRole, setSelectedRole] = useState("개발자");
-
+const Modal = ({ isOpen, onClose, title, bodyCildren, footerChildren }) => {
   if (!isOpen) return null;
 
   return (
@@ -24,40 +14,8 @@ const Modal = ({ isOpen, onClose, title }) => {
             <img src="/assets/png/close-button.png" alt="close" />
           </button>
         </ModalHeader>
-        <ModalBody>
-          <WrapField>
-            <Label text="이름" isRequired={true} id={"name"} />
-            <Input placeholder="Input" id={"name"} />
-          </WrapField>
-          <WrapField>
-            <Label text="주소" id={"address"} />
-            <Input placeholder="Input" id={"address"} />
-          </WrapField>
-          <WrapField>
-            <Label text="메모" />
-            <Textarea placeholder="Textarea" />
-          </WrapField>
-          <WrapField>
-            <Label text="가입일" isRequired={true} />
-            <CustomDatePicker selectedDate={date} onChange={setDate} />
-          </WrapField>
-          <WrapField>
-            <Label text="직업" />
-            <Select
-              options={["개발자", "PO", "디자이너"]}
-              selected={selectedRole}
-              onChange={setSelectedRole}
-            />
-          </WrapField>
-          <WrapField>
-            <Label text="이메일 수신 동의" />
-            <Checkbox checked={checked} onChange={() => setChecked(!checked)} />
-          </WrapField>
-        </ModalBody>
-        <ModalFooter>
-          <CancelButton onClick={onClose}>취소</CancelButton>
-          <SaveButton disabled>저장</SaveButton>
-        </ModalFooter>
+        <ModalBody>{bodyCildren}</ModalBody>
+        <ModalFooter>{footerChildren}</ModalFooter>
       </WrapperModal>
     </Overlay>
   );
@@ -127,12 +85,6 @@ const ModalBody = styled.div`
   flex-grow: 1;
 `;
 
-const WrapField = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 5px;
-`;
-
 const ModalFooter = styled.div`
   display: flex;
   justify-content: flex-end;
@@ -140,20 +92,4 @@ const ModalFooter = styled.div`
   padding: 10px;
   background: var(--colorFillAlter, #00000005);
   border-top: 1px solid var(--colorSplit, #0000000f);
-`;
-
-const CancelButton = styled.button`
-  background: none;
-  border: 1px solid #e3e3e3;
-  padding: 8px 16px;
-  border-radius: 5px;
-  cursor: pointer;
-`;
-
-const SaveButton = styled.button`
-  background: #e3e3e3;
-  border: none;
-  padding: 8px 16px;
-  border-radius: 5px;
-  color: #999;
 `;

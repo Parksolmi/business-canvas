@@ -2,6 +2,7 @@ import React, { useState, useRef, useEffect } from "react";
 import styled from "styled-components";
 import Checkbox from "../common/Checkbox";
 import MoreButton from "../common/MoreButton";
+import PropTypes from "prop-types";
 
 const MemberTable = ({ members, openModal, onDelete }) => {
   const [selectedMembers, setSelectedMembers] = useState([]);
@@ -206,6 +207,12 @@ const MemberTable = ({ members, openModal, onDelete }) => {
       </Table>
     </WrapperTable>
   );
+};
+
+MemberTable.propTypes = {
+  members: PropTypes.array.isRequired,
+  openModal: PropTypes.func.isRequired,
+  onDelete: PropTypes.func.isRequired,
 };
 
 const WrapperTable = styled.div`

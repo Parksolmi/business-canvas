@@ -2,9 +2,9 @@ import React from "react";
 import PropTypes from "prop-types";
 import styled from "styled-components";
 
-const Label = ({ text, id, isRequired = false, className }) => {
+const Label = ({ id, text, isRequired = false }) => {
   return (
-    <StyledLabel htmlFor={id} className={className}>
+    <StyledLabel htmlFor={id}>
       {text}
       {isRequired && <span className="required"> *</span>}
     </StyledLabel>
@@ -12,9 +12,10 @@ const Label = ({ text, id, isRequired = false, className }) => {
 };
 
 Label.propTypes = {
+  id: PropTypes.string.isRequired,
   text: PropTypes.string.isRequired,
+  isRequired: PropTypes.bool,
   htmlFor: PropTypes.string,
-  className: PropTypes.string,
 };
 
 const StyledLabel = styled.label`

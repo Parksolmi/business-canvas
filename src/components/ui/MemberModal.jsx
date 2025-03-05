@@ -9,6 +9,7 @@ import Select from "../common/Select";
 import Checkbox from "../common/Checkbox";
 import { format } from "date-fns";
 import checkLocalEnv from "../../utils/checkLocalEnv";
+import PropTypes from "prop-types";
 
 const MemberModal = ({ isOpen, onClose, onSave, selectedId }) => {
   const [Member, setMember] = useState({
@@ -112,8 +113,9 @@ const MemberModal = ({ isOpen, onClose, onSave, selectedId }) => {
             />
           </WrapField>
           <WrapField ref={datepickerRef}>
-            <Label text="가입일" isRequired={true} />
+            <Label text="가입일" isRequired={true} id="date" />
             <CustomDatePicker
+              id="date"
               selectedDate={Member.joinDate}
               onChange={(date) =>
                 handleChange("joinDate", format(new Date(date), "yyyy-MM-dd"))
@@ -121,8 +123,9 @@ const MemberModal = ({ isOpen, onClose, onSave, selectedId }) => {
             />
           </WrapField>
           <WrapField ref={selectRef}>
-            <Label text="직업" />
+            <Label text="직업" id="job" />
             <Select
+              id="job"
               options={["개발자", "PO", "디자이너"]}
               selected={Member.job}
               onChange={(job) => handleChange("job", job)}
@@ -131,8 +134,9 @@ const MemberModal = ({ isOpen, onClose, onSave, selectedId }) => {
             />
           </WrapField>
           <WrapField>
-            <Label text="이메일 수신 동의" />
+            <Label text="이메일 수신 동의" id="email" />
             <Checkbox
+              id="email"
               checked={Member.emailAgreement}
               onChange={() =>
                 handleChange("emailAgreement", !Member.emailAgreement)
@@ -151,6 +155,13 @@ const MemberModal = ({ isOpen, onClose, onSave, selectedId }) => {
       }
     />
   );
+};
+
+MemberModal.propTypes = {
+  isOpen: PropTypes.bool.isRequired,
+  onClose: PropTypes.func.isRequired,
+  onSave: PropTypes.func.isRequired,
+  selectedId: PropTypes.number,
 };
 
 const WrapField = styled.div`

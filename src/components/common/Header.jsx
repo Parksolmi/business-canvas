@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import Button from "./Button";
+import PropTypes from "prop-types";
 
 const Header = ({ onClickPlusButton }) => {
   return (
@@ -9,6 +10,10 @@ const Header = ({ onClickPlusButton }) => {
       <Button children={"추가"} onClick={() => onClickPlusButton()} />
     </WrapperHeader>
   );
+};
+
+Header.propsTypes = {
+  onClickPlusButton: PropTypes.func.isRequired,
 };
 
 const WrapperHeader = styled.header`

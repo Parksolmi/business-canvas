@@ -2,9 +2,9 @@ import React from "react";
 import PropTypes from "prop-types";
 import styled from "styled-components";
 
-const Button = ({ onClick, children, type = "button", className = "" }) => {
+const Button = ({ onClick, children }) => {
   return (
-    <WrapperButton type={type} className={`btn ${className}`} onClick={onClick}>
+    <WrapperButton onClick={onClick}>
       <img src="assets/png/plus-outlined.png" alt="plus" />
       {children}
     </WrapperButton>
@@ -14,8 +14,6 @@ const Button = ({ onClick, children, type = "button", className = "" }) => {
 Button.propTypes = {
   onClick: PropTypes.func.isRequired,
   children: PropTypes.node.isRequired,
-  type: PropTypes.string,
-  className: PropTypes.string,
 };
 
 const WrapperButton = styled.button`

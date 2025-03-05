@@ -1,10 +1,11 @@
 import React from "react";
+import PropTypes from "prop-types";
 import { DatePicker } from "antd";
 import "antd/dist/reset.css";
 import dayjs from "dayjs";
 import styled from "styled-components";
 
-const CustomDatePicker = ({ selectedDate, onChange }) => {
+const CustomDatePicker = ({ id, selectedDate, onChange }) => {
   const handleChange = (date) => {
     onChange(date ? date.format("YYYY-MM-DD") : null);
   };
@@ -12,6 +13,7 @@ const CustomDatePicker = ({ selectedDate, onChange }) => {
   return (
     <DatePickerWrapper>
       <StyledDatePicker
+        id={id}
         value={selectedDate ? dayjs(selectedDate, "YYYY-MM-DD") : null}
         onChange={handleChange}
         format="YYYY-MM-DD"
@@ -23,7 +25,11 @@ const CustomDatePicker = ({ selectedDate, onChange }) => {
   );
 };
 
-export default CustomDatePicker;
+CustomDatePicker.propTypes = {
+  id: PropTypes.string.isRequired,
+  selectedDate: PropTypes.string,
+  onChange: PropTypes.func.isRequired,
+};
 
 const DatePickerWrapper = styled.div`
   position: relative;
@@ -46,3 +52,5 @@ const StyledDatePicker = styled(DatePicker)`
     box-shadow: 0 0 0 3px rgba(74, 144, 226, 0.2) !important;
   }
 `;
+
+export default CustomDatePicker;

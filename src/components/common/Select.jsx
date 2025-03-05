@@ -1,10 +1,11 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import { css } from "styled-components";
+import PropTypes from "prop-types";
 
 const options = ["개발자", "PO", "디자이너"];
 
-const Select = ({ selected, onChange, isOpen, setIsOpen }) => {
+const Select = ({ id, selected, onChange, isOpen, setIsOpen }) => {
   const [selectedOption, setSelectedOption] = useState(selected || options[0]);
 
   const handleSelect = (option) => {
@@ -15,7 +16,7 @@ const Select = ({ selected, onChange, isOpen, setIsOpen }) => {
 
   return (
     <SelectWrapper>
-      <SelectBox onClick={() => setIsOpen(!isOpen)} $isOpen={isOpen}>
+      <SelectBox id={id} onClick={() => setIsOpen(!isOpen)} $isOpen={isOpen}>
         {selectedOption}
         <img
           src="/assets/png/select-icon.png"
@@ -38,6 +39,14 @@ const Select = ({ selected, onChange, isOpen, setIsOpen }) => {
       )}
     </SelectWrapper>
   );
+};
+
+Select.propTypes = {
+  id: PropTypes.string.isRequired,
+  selected: PropTypes.string.isRequired,
+  onChange: PropTypes.func.isRequired,
+  isOpen: PropTypes.bool.isRequired,
+  setIsOpen: PropTypes.func.isRequired,
 };
 
 const SelectWrapper = styled.div`

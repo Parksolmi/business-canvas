@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import PropTypes from "prop-types";
 
 const MoreButton = ({ onClick, isDisabled = false }) => {
   return (
@@ -11,6 +12,11 @@ const MoreButton = ({ onClick, isDisabled = false }) => {
       <img src="/assets/png/more-button.png" alt="more" />
     </StyledMoreButton>
   );
+};
+
+MoreButton.propTypes = {
+  onClick: PropTypes.func.isRequired,
+  isDisabled: PropTypes.bool,
 };
 
 const StyledMoreButton = styled.button`

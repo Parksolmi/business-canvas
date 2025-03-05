@@ -2,10 +2,11 @@ import React from "react";
 import PropTypes from "prop-types";
 import styled from "styled-components";
 
-const Checkbox = ({ checked, onChange, readOnly = false, label }) => {
+const Checkbox = ({ id, checked, onChange, readOnly = false, label }) => {
   return (
     <WrapperCheckbox>
       <input
+        id={id}
         className="hidden-checkbox"
         type="checkbox"
         {...(readOnly ? { defaultChecked: checked } : { checked, onChange })}
@@ -19,6 +20,8 @@ const Checkbox = ({ checked, onChange, readOnly = false, label }) => {
 Checkbox.propTypes = {
   checked: PropTypes.bool.isRequired,
   onChange: PropTypes.func,
+  readOnly: PropTypes.bool,
+  label: PropTypes.string,
 };
 
 const WrapperCheckbox = styled.label`

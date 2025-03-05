@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import PropTypes from "prop-types";
 
 const Input = ({ type = "text", id, placeholder = "", value, onChange }) => {
   return (
@@ -9,9 +10,16 @@ const Input = ({ type = "text", id, placeholder = "", value, onChange }) => {
       placeholder={placeholder}
       value={value}
       onChange={onChange}
-      className="input"
     />
   );
+};
+
+Input.propTypes = {
+  type: PropTypes.string,
+  id: PropTypes.string.isRequired,
+  placeholder: PropTypes.string,
+  value: PropTypes.string.isRequired,
+  onChange: PropTypes.func.isRequired,
 };
 
 const StyledInput = styled.input`

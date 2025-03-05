@@ -4,7 +4,7 @@ import Checkbox from "../common/Checkbox";
 import MoreButton from "../common/MoreButton";
 
 const MemberTable = ({ members, openModal, onDelete }) => {
-  const [checked, setChecked] = useState(false);
+  const [selectedMembers, setSelectedMembers] = useState([]);
   const [openMoreMenuId, setOpenMoreMenuId] = useState(null);
 
   const moreMenuRef = useRef(null);
@@ -25,28 +25,6 @@ const MemberTable = ({ members, openModal, onDelete }) => {
       (key) => filters[key].length === 0 || filters[key].includes(member[key])
     )
   );
-
-  // 클릭 감지 후 메뉴 닫기
-  useEffect(() => {
-    function handleClickOutside(event) {
-      // MoreMenu 바깥 클릭 감지
-      if (moreMenuRef.current && !moreMenuRef.current.contains(event.target)) {
-        setOpenMoreMenuId(null);
-      }
-      // FilterMenu 바깥 클릭 감지
-      if (
-        filterMenuRef.current &&
-        !filterMenuRef.current.contains(event.target)
-      ) {
-        setOpenFilter(null);
-      }
-    }
-
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  }, []);
 
   const handleClickMoreButton = (id) => {
     setOpenMoreMenuId((prev) => (prev === id ? null : id));
@@ -78,6 +56,45 @@ const MemberTable = ({ members, openModal, onDelete }) => {
     });
   };
 
+  // 체크박스
+  const handleRowCheckbox = (id) => {
+    setSelectedMembers((prev) =>
+      prev.includes(id)
+        ? prev.filter((memberId) => memberId !== id)
+        : [...prev, id]
+    );
+  };
+
+  const handleSelectAll = () => {
+    if (selectedMembers.length === filteredMembers.length) {
+      setSelectedMembers([]); // 전체 해제
+    } else {
+      setSelectedMembers(filteredMembers.map((member) => member.id)); // 전체 선택
+    }
+  };
+
+  // 클릭 감지 후 메뉴 닫기
+  useEffect(() => {
+    function handleClickOutside(event) {
+      // MoreMenu 바깥 클릭 감지
+      if (moreMenuRef.current && !moreMenuRef.current.contains(event.target)) {
+        setOpenMoreMenuId(null);
+      }
+      // FilterMenu 바깥 클릭 감지
+      if (
+        filterMenuRef.current &&
+        !filterMenuRef.current.contains(event.target)
+      ) {
+        setOpenFilter(null);
+      }
+    }
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
+
   return (
     <WrapperTable>
       <Table>
@@ -85,8 +102,11 @@ const MemberTable = ({ members, openModal, onDelete }) => {
           <tr>
             <Th>
               <Checkbox
-                checked={checked}
-                onChange={() => setChecked(!checked)}
+                checked={
+                  selectedMembers.length === filteredMembers.length &&
+                  selectedMembers.length > 0
+                }
+                onChange={handleSelectAll}
               />
             </Th>
             {[
@@ -147,8 +167,8 @@ const MemberTable = ({ members, openModal, onDelete }) => {
             <Tr key={member.id}>
               <Td>
                 <Checkbox
-                  checked={checked}
-                  onChange={() => setChecked(!checked)}
+                  checked={selectedMembers.includes(member.id)}
+                  onChange={() => handleRowCheckbox(member.id)}
                 />
               </Td>
               <Td>{member.name}</Td>

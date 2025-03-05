@@ -96,9 +96,16 @@ const DropdownItem = styled.li`
   border-radius: 8px;
 
   &:hover {
+    color: black;
+    background: var(--Dropdown-controlItemBgHover, #0000000a);
+  }
+
+  ${({ $isSelected }) =>
+    $isSelected &&
+    `
     background: #f0f7ff;
     color: #4a7cfe;
-  }
+  `}
 `;
 
 export default Select;

@@ -84,8 +84,8 @@ const MemberModal = ({ isOpen, onClose, onSave, selectedId }) => {
           <WrapField>
             <Label text="이름" isRequired={true} id="name" />
             <Input
-              placeholder="Input"
               id="name"
+              placeholder="Input"
               value={Member.name}
               onChange={(e) => handleChange("name", e.target.value)}
             />
@@ -93,15 +93,16 @@ const MemberModal = ({ isOpen, onClose, onSave, selectedId }) => {
           <WrapField>
             <Label text="주소" id="address" />
             <Input
-              placeholder="Input"
               id="address"
+              placeholder="Input"
               value={Member.address}
               onChange={(e) => handleChange("address", e.target.value)}
             />
           </WrapField>
           <WrapField>
-            <Label text="메모" />
+            <Label text="메모" id="memo" />
             <Textarea
+              id="memo"
               placeholder="Textarea"
               value={Member.memo}
               onChange={(e) => handleChange("memo", e.target.value)}

@@ -1,9 +1,10 @@
 import React from "react";
 import styled from "styled-components";
 
-const Textarea = ({ value, onChange, placeholder }) => {
+const Textarea = ({ id, value, onChange, placeholder }) => {
   return (
     <StyledTextarea
+      id={id}
       value={value}
       onChange={onChange}
       placeholder={placeholder}

@@ -288,7 +288,7 @@ const FilterMenu = styled.div`
   z-index: 100;
   display: flex;
   flex-direction: column;
-  gap: 5px;
+  gap: 10px;
 `;
 
 const FilterItem = styled.div`
@@ -296,9 +296,16 @@ const FilterItem = styled.div`
   display: flex;
   align-items: center;
   justify-content: flex-start;
-  gap: 10px;
   font-size: 14px;
   cursor: pointer;
+  white-space: nowrap;
+
+  font-family: Pretendard;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 22px;
+  letter-spacing: 0%;
+  color: #000000e0;
 `;
 
 const Tr = styled.tr`

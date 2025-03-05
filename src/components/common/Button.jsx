@@ -6,7 +6,7 @@ import styled from "styled-components";
 const Button = ({ onClick, children, type = "button", className = "" }) => {
   return (
     <WrapperButton type={type} className={`btn ${className}`} onClick={onClick}>
-      <img src="assets/png/plus_outlined.png" alt="plus" />
+      <img src="assets/png/plus-outlined.png" alt="plus" />
       {children}
     </WrapperButton>
   );

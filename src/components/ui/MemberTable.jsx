@@ -41,37 +41,37 @@ const MemberTable = () => {
             <Th>
               <div>
                 이름
-                <img src="assets/png/dropdown_trigger.png" alt="filter" />
+                <img src="assets/png/dropdown-trigger.png" alt="filter" />
               </div>
             </Th>
             <Th>
               <div>
                 주소
-                <img src="assets/png/dropdown_trigger.png" alt="filter" />
+                <img src="assets/png/dropdown-trigger.png" alt="filter" />
               </div>
             </Th>
             <Th>
               <div>
                 메모
-                <img src="assets/png/dropdown_trigger.png" alt="filter" />
+                <img src="assets/png/dropdown-trigger.png" alt="filter" />
               </div>
             </Th>
             <Th>
               <div>
                 가입일
-                <img src="assets/png/dropdown_trigger.png" alt="filter" />
+                <img src="assets/png/dropdown-trigger.png" alt="filter" />
               </div>
             </Th>
             <Th>
               <div>
                 직업
-                <img src="assets/png/dropdown_trigger.png" alt="filter" />
+                <img src="assets/png/dropdown-trigger.png" alt="filter" />
               </div>
             </Th>
             <Th>
               <div>
                 이메일 수신 동의
-                <img src="assets/png/dropdown_trigger.png" alt="filter" />
+                <img src="assets/png/dropdown-trigger.png" alt="filter" />
               </div>
             </Th>
           </tr>

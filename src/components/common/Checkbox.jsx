@@ -1,15 +1,10 @@
-import React, { useEffect } from "react";
+import React from "react";
 import PropTypes from "prop-types";
 import styled from "styled-components";
 
-const Checkbox = ({ label, checked, onChange }) => {
-  useEffect(() => {
-    console.log(checked);
-  }, [checked]);
-
+const Checkbox = ({ checked, onChange }) => {
   return (
     <WrapperCheckbox>
-      {label}
       <input
         className="hidden-checkbox"
         type="checkbox"
@@ -22,16 +17,11 @@ const Checkbox = ({ label, checked, onChange }) => {
 };
 
 Checkbox.propTypes = {
-  label: PropTypes.string,
   checked: PropTypes.bool,
   onChange: PropTypes.func.isRequired,
 };
 
 const WrapperCheckbox = styled.label`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
   .hidden-checkbox {
     display: none;
   }

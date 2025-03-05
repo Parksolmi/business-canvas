@@ -5,9 +5,13 @@ import Input from "./Input";
 import Textarea from "./Textarea";
 import CustomDatePicker from "./CustomDatePicker";
 import Label from "./Label";
+import Select from "./Select";
+import Checkbox from "./Checkbox";
 
 const Modal = ({ isOpen, onClose, title }) => {
   const [date, setDate] = useState(null);
+  const [checked, setChecked] = useState(false);
+  const [selectedRole, setSelectedRole] = useState("개발자");
 
   if (!isOpen) return null;
 
@@ -36,6 +40,18 @@ const Modal = ({ isOpen, onClose, title }) => {
           <WrapField>
             <Label text="가입일" isRequired={true} />
             <CustomDatePicker selectedDate={date} onChange={setDate} />
+          </WrapField>
+          <WrapField>
+            <Label text="직업" />
+            <Select
+              options={["개발자", "PO", "디자이너"]}
+              selected={selectedRole}
+              onChange={setSelectedRole}
+            />
+          </WrapField>
+          <WrapField>
+            <Label text="이메일 수신 동의" />
+            <Checkbox checked={checked} onChange={() => setChecked(!checked)} />
           </WrapField>
         </ModalBody>
         <ModalFooter>

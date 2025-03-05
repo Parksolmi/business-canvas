@@ -40,7 +40,7 @@ const StyledDatePicker = styled(ReactDatePicker)`
   width: 100%;
   padding: 10px 12px;
   border: 1px solid #e3e3e3;
-  border-radius: 6px;
+  border-radius: 10px;
   font-size: 14px;
   outline: none;
   background-color: white;

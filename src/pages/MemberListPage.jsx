@@ -32,7 +32,6 @@ const MemberListPage = () => {
           m.id === member.id ? { ...m, ...member } : m
         );
       } else {
-        console.log("새로운 멤버 추가", existingMembers.length);
         // 새로운 멤버 추가
         existingMembers.push({
           ...member,

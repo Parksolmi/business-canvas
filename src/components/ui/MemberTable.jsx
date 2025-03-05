@@ -1,9 +1,30 @@
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import styled from "styled-components";
 import Checkbox from "../common/Checkbox";
+import MoreButton from "../common/MoreButton";
 
 const MemberTable = ({ members }) => {
   const [checked, setChecked] = useState(false);
+  const [openMoreMenuId, setOpenMoreMenuId] = useState(null);
+  const moreMenuRef = useRef(null);
+
+  // 바깥 클릭 감지 후 메뉴 닫기
+  useEffect(() => {
+    function handleClickOutside(event) {
+      if (moreMenuRef.current && !moreMenuRef.current.contains(event.target)) {
+        setOpenMoreMenuId(null);
+      }
+    }
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
+
+  const handleClickMoreButton = (id) => {
+    setOpenMoreMenuId((prev) => (prev === id ? null : id));
+  };
 
   return (
     <WrapperTable>
@@ -69,7 +90,23 @@ const MemberTable = ({ members }) => {
               <Td>{member.joinDate}</Td>
               <Td>{member.job}</Td>
               <Td>
-                <Checkbox checked={member.emailAgreement} readOnly={true} />
+                <div style={{ position: "relative" }} ref={moreMenuRef}>
+                  <Checkbox checked={member.emailAgreement} readOnly={true} />
+                  <MoreButton
+                    onClick={() => handleClickMoreButton(member.id)}
+                  />
+                  {openMoreMenuId === member.id && (
+                    <MoreMenu>
+                      <MoreMenuItem onClick={() => console.log("수정")}>
+                        수정
+                      </MoreMenuItem>
+                      <Divider />
+                      <MoreMenuItem $danger onClick={() => console.log("삭제")}>
+                        삭제
+                      </MoreMenuItem>
+                    </MoreMenu>
+                  )}
+                </div>
               </Td>
             </Tr>
           ))}
@@ -110,7 +147,7 @@ const Th = styled.th`
     top: 50%;
     transform: translateY(-50%);
     width: 1px;
-    height: 60%; /* 세로 길이 조절 */
+    height: 60%;
     background-color: #0000000f;
   }
 
@@ -134,8 +171,51 @@ const Tr = styled.tr`
 const Td = styled.td`
   padding: 10px;
   font-size: 0.9rem;
-
   border-right: ${({ $first }) => ($first ? "1px solid #0000000f" : "none")};
+  vertical-align: middle;
+
+  div {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+`;
+
+const MoreMenu = styled.div`
+  position: absolute;
+  top: 150%;
+  right: 0;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0px 9px 28px 8px #0000000d, 0px 3px 6px -4px #0000001f,
+    0px 6px 16px 0px #00000014;
+
+  width: 100%;
+  padding: 4px;
+  z-index: 100;
+
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+`;
+
+const MoreMenuItem = styled.div`
+  width: 100%;
+  padding: 10px 16px;
+  font-size: 14px;
+  cursor: pointer;
+  color: ${({ $danger }) => ($danger ? "red" : "black")};
+
+  display: flex;
+  justify-content: left;
+  box-sizing: border-box;
+`;
+
+const Divider = styled.div`
+  width: 100%;
+  height: 1px;
+  background: #e3e3e3;
+  margin: 0 4px;
 `;
 
 export default MemberTable;

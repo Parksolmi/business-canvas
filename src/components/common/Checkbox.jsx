@@ -21,6 +21,7 @@ Checkbox.propTypes = {
 };
 
 const WrapperCheckbox = styled.label`
+  padding-top: 2px;
   .hidden-checkbox {
     display: none;
   }

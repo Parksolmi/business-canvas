@@ -3,7 +3,7 @@ import styled from "styled-components";
 import Checkbox from "../common/Checkbox";
 import MoreButton from "../common/MoreButton";
 
-const MemberTable = ({ members }) => {
+const MemberTable = ({ members, openModal }) => {
   const [checked, setChecked] = useState(false);
   const [openMoreMenuId, setOpenMoreMenuId] = useState(null);
   const moreMenuRef = useRef(null);
@@ -24,6 +24,12 @@ const MemberTable = ({ members }) => {
 
   const handleClickMoreButton = (id) => {
     setOpenMoreMenuId((prev) => (prev === id ? null : id));
+  };
+
+  const handleEditMember = (id) => {
+    console.log(id);
+    openModal(id);
+    setOpenMoreMenuId(null);
   };
 
   return (
@@ -90,14 +96,14 @@ const MemberTable = ({ members }) => {
               <Td>{member.joinDate}</Td>
               <Td>{member.job}</Td>
               <Td>
-                <div style={{ position: "relative" }} ref={moreMenuRef}>
+                <div style={{ position: "relative" }}>
                   <Checkbox checked={member.emailAgreement} readOnly={true} />
                   <MoreButton
                     onClick={() => handleClickMoreButton(member.id)}
                   />
                   {openMoreMenuId === member.id && (
-                    <MoreMenu>
-                      <MoreMenuItem onClick={() => console.log("수정")}>
+                    <MoreMenu ref={moreMenuRef}>
+                      <MoreMenuItem onClick={() => handleEditMember(member.id)}>
                         수정
                       </MoreMenuItem>
                       <Divider />

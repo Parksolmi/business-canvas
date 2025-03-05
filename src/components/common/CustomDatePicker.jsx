@@ -1,21 +1,18 @@
-import React, { useState } from "react";
+import React from "react";
 import ReactDatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import styled from "styled-components";
 // import { createGlobalStyle } from "styled-components";
 
 const CustomDatePicker = ({ selectedDate, onChange }) => {
-  const [startDate, setStartDate] = useState(selectedDate);
-
   const handleChange = (date) => {
-    setStartDate(date);
     onChange(date);
   };
 
   return (
     <DatePickerWrapper>
       <StyledDatePicker
-        selected={startDate}
+        selected={selectedDate ? new Date(selectedDate) : null}
         onChange={handleChange}
         dateFormat="yyyy-MM-dd"
         placeholderText="Select date"

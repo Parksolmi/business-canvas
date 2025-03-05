@@ -6,7 +6,7 @@ const Header = ({ onClickPlusButton }) => {
   return (
     <WrapperHeader>
       <h2>회원 목록</h2>
-      <Button children={"추가"} onClick={onClickPlusButton} />
+      <Button children={"추가"} onClick={() => onClickPlusButton()} />
     </WrapperHeader>
   );
 };

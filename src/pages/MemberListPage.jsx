@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import Header from "../components/common/Header";
 import MemberTable from "../components/ui/MemberTable";
 import useModal from "../hooks/useModal";
-import AddMemberModal from "../components/ui/AddMemberModal";
+import MemberModal from "../components/ui/MemberModal";
 import { format } from "date-fns";
 
 const MemberListPage = () => {
@@ -10,39 +10,46 @@ const MemberListPage = () => {
     JSON.parse(localStorage.getItem("members")) || []
   );
 
-  const { openModal: openAddMemberModal, closeModal: closeAddMemberModal } =
-    useModal(() => (
-      <AddMemberModal
+  const { openModal: openMemberModal, closeModal: closeMemberModal } = useModal(
+    (id) => (
+      <MemberModal
         isOpen={true}
-        onClose={closeAddMemberModal}
-        onSave={handleSaveNewMember}
+        onClose={closeMemberModal}
+        onSave={handleSaveMember}
+        selectedId={id ? id : null}
       />
-    ));
+    )
+  );
 
-  const handleSaveNewMember = (newMember) => {
-    const existingMembers = JSON.parse(localStorage.getItem("members")) || [];
+  const handleSaveMember = (member) => {
+    let existingMembers = JSON.parse(localStorage.getItem("members")) || [];
 
-    const updatedMembers = [
-      ...existingMembers,
-      {
+    if (member.id !== null) {
+      // selectedId가 있는 경우, 기존 멤버 수정
+      existingMembers = existingMembers.map((m) =>
+        m.id === member.id ? { ...m, ...member } : m
+      );
+    } else {
+      console.log("새로운 멤버 추가", existingMembers.length);
+      // 새로운 멤버 추가
+      existingMembers.push({
+        ...member,
         id: existingMembers.length + 1,
-        ...newMember,
-        joinDate: newMember.joinDate
-          ? format(new Date(newMember.joinDate), "yyyy-MM-dd")
+        joinDate: member.joinDate
+          ? format(new Date(member.joinDate), "yyyy-MM-dd")
           : null,
-      },
-    ];
+      });
+    }
 
-    localStorage.setItem("members", JSON.stringify(updatedMembers));
-    setMembers(updatedMembers);
-
-    closeAddMemberModal();
+    localStorage.setItem("members", JSON.stringify(existingMembers));
+    setMembers(existingMembers);
+    closeMemberModal();
   };
 
   return (
     <div>
-      <Header onClickPlusButton={openAddMemberModal} />
-      <MemberTable members={members} />
+      <Header onClickPlusButton={openMemberModal} />
+      <MemberTable members={members} openModal={openMemberModal} />
     </div>
   );
 };

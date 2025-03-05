@@ -7,9 +7,11 @@ import CustomDatePicker from "../common/CustomDatePicker";
 import Label from "../common/Label";
 import Select from "../common/Select";
 import Checkbox from "../common/Checkbox";
+import { format } from "date-fns";
 
-const AddMemberModal = ({ isOpen, onClose, onSave }) => {
-  const [newMember, setNewMember] = useState({
+const MemberModal = ({ isOpen, onClose, onSave, selectedId }) => {
+  const [Member, setMember] = useState({
+    id: null,
     name: "",
     address: "",
     memo: "",
@@ -23,12 +25,11 @@ const AddMemberModal = ({ isOpen, onClose, onSave }) => {
   const selectRef = useRef(null);
 
   const handleChange = (field, value) => {
-    setNewMember((prev) => ({ ...prev, [field]: value }));
+    setMember((prev) => ({ ...prev, [field]: value }));
   };
 
   // 버튼 활성화 유효성 검사
-  const isFormValid =
-    newMember.name.trim() !== "" && newMember.joinDate !== null;
+  const isFormValid = Member.name.trim() !== "" && Member.joinDate !== null;
 
   // 바깥 클릭 감지 핸들러
   useEffect(() => {
@@ -51,6 +52,28 @@ const AddMemberModal = ({ isOpen, onClose, onSave }) => {
     };
   }, []);
 
+  // 기존 데이터 불러오기
+  useEffect(() => {
+    if (selectedId !== null) {
+      const storedMembers = JSON.parse(localStorage.getItem("members")) || [];
+      const selectedMember = storedMembers.find(
+        (member) => member.id === selectedId
+      );
+
+      if (selectedMember) {
+        setMember({
+          id: selectedMember.id,
+          name: selectedMember.name || "",
+          address: selectedMember.address || "",
+          memo: selectedMember.memo || "",
+          job: selectedMember.job || "개발자",
+          emailAgreement: selectedMember.emailAgreement || false,
+          joinDate: selectedMember.joinDate || null,
+        });
+      }
+    }
+  }, [selectedId]);
+
   return (
     <Modal
       isOpen={isOpen}
@@ -63,7 +86,7 @@ const AddMemberModal = ({ isOpen, onClose, onSave }) => {
             <Input
               placeholder="Input"
               id="name"
-              value={newMember.name}
+              value={Member.name}
               onChange={(e) => handleChange("name", e.target.value)}
             />
           </WrapField>
@@ -72,7 +95,7 @@ const AddMemberModal = ({ isOpen, onClose, onSave }) => {
             <Input
               placeholder="Input"
               id="address"
-              value={newMember.address}
+              value={Member.address}
               onChange={(e) => handleChange("address", e.target.value)}
             />
           </WrapField>
@@ -80,22 +103,24 @@ const AddMemberModal = ({ isOpen, onClose, onSave }) => {
             <Label text="메모" />
             <Textarea
               placeholder="Textarea"
-              value={newMember.memo}
+              value={Member.memo}
               onChange={(e) => handleChange("memo", e.target.value)}
             />
           </WrapField>
           <WrapField ref={datepickerRef}>
             <Label text="가입일" isRequired={true} />
             <CustomDatePicker
-              selectedDate={newMember.joinDate}
-              onChange={(date) => handleChange("joinDate", date)}
+              selectedDate={Member.joinDate}
+              onChange={(date) =>
+                handleChange("joinDate", format(new Date(date), "yyyy-MM-dd"))
+              }
             />
           </WrapField>
           <WrapField ref={selectRef}>
             <Label text="직업" />
             <Select
               options={["개발자", "PO", "디자이너"]}
-              selected={newMember.job}
+              selected={Member.job}
               onChange={(job) => handleChange("job", job)}
               isOpen={isSelectOpen}
               setIsOpen={setIsSelectOpen}
@@ -104,9 +129,9 @@ const AddMemberModal = ({ isOpen, onClose, onSave }) => {
           <WrapField>
             <Label text="이메일 수신 동의" />
             <Checkbox
-              checked={newMember.emailAgreement}
+              checked={Member.emailAgreement}
               onChange={() =>
-                handleChange("emailAgreement", !newMember.emailAgreement)
+                handleChange("emailAgreement", !Member.emailAgreement)
               }
             />
           </WrapField>
@@ -115,7 +140,7 @@ const AddMemberModal = ({ isOpen, onClose, onSave }) => {
       footerChildren={
         <>
           <CancelButton onClick={onClose}>취소</CancelButton>
-          <SaveButton onClick={() => onSave(newMember)} disabled={!isFormValid}>
+          <SaveButton onClick={() => onSave(Member)} disabled={!isFormValid}>
             저장
           </SaveButton>
         </>
@@ -124,7 +149,6 @@ const AddMemberModal = ({ isOpen, onClose, onSave }) => {
   );
 };
 
-// ✅ Styled Components
 const WrapField = styled.div`
   display: flex;
   flex-direction: column;
@@ -148,4 +172,4 @@ const SaveButton = styled.button`
   cursor: ${({ disabled }) => (disabled ? "not-allowed" : "pointer")};
 `;
 
-export default AddMemberModal;
+export default MemberModal;

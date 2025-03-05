@@ -7,7 +7,14 @@ const Header = ({ onClickPlusButton }) => {
   return (
     <WrapperHeader>
       <h2>회원 목록</h2>
-      <Button children={"추가"} onClick={() => onClickPlusButton()} />
+      <Button
+        children={
+          <>
+            <img src="assets/png/plus-outlined.png" alt="plus" /> 추가
+          </>
+        }
+        onClick={() => onClickPlusButton()}
+      />
     </WrapperHeader>
   );
 };
@@ -32,6 +39,11 @@ const WrapperHeader = styled.header`
   h2 {
     font-size: 1.2rem;
     font-weight: bold;
+  }
+
+  img {
+    width: 1rem;
+    height: 1rem;
   }
 `;
 

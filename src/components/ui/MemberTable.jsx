@@ -308,7 +308,6 @@ const Tr = styled.tr`
 const Td = styled.td`
   padding: 5px 10px;
   font-size: 0.9rem;
-  border-right: 1px solid ${({ theme }) => theme.colors.divider};
   vertical-align: middle;
 
   width: auto;
@@ -318,6 +317,10 @@ const Td = styled.td`
     display: flex;
     justify-content: space-between;
     align-items: center;
+  }
+
+  &:first-child {
+    border-right: 1px solid ${({ theme }) => theme.colors.divider};
   }
 
   &:nth-last-child(2) {

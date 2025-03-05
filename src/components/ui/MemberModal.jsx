@@ -10,6 +10,7 @@ import Checkbox from "../common/Checkbox";
 import { format } from "date-fns";
 import checkLocalEnv from "../../utils/checkLocalEnv";
 import PropTypes from "prop-types";
+import Button from "../common/Button";
 
 const MemberModal = ({ isOpen, onClose, onSave, selectedId }) => {
   const [Member, setMember] = useState({
@@ -147,10 +148,12 @@ const MemberModal = ({ isOpen, onClose, onSave, selectedId }) => {
       }
       footerChildren={
         <>
-          <CancelButton onClick={onClose}>취소</CancelButton>
-          <SaveButton onClick={() => onSave(Member)} disabled={!isFormValid}>
-            저장
-          </SaveButton>
+          <Button onClick={onClose} variant="cancel">
+            취소
+          </Button>
+          <Button disabled={!isFormValid} onClick={() => onSave(Member)}>
+            {selectedId ? "저장" : "추가"}
+          </Button>
         </>
       }
     />
@@ -168,23 +171,6 @@ const WrapField = styled.div`
   display: flex;
   flex-direction: column;
   gap: 5px;
-`;
-
-const CancelButton = styled.button`
-  background: none;
-  border: 1px solid #e3e3e3;
-  padding: 8px 16px;
-  border-radius: 5px;
-  cursor: pointer;
-`;
-
-const SaveButton = styled.button`
-  background: ${({ disabled }) => (disabled ? "#e3e3e3" : "#4A7CFE")};
-  border: none;
-  padding: 8px 16px;
-  border-radius: 5px;
-  color: ${({ disabled }) => (disabled ? "#999" : "#fff")};
-  cursor: ${({ disabled }) => (disabled ? "not-allowed" : "pointer")};
 `;
 
 export default MemberModal;

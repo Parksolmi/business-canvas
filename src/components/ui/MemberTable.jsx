@@ -3,7 +3,7 @@ import styled from "styled-components";
 import Checkbox from "../common/Checkbox";
 import MoreButton from "../common/MoreButton";
 
-const MemberTable = ({ members, openModal }) => {
+const MemberTable = ({ members, openModal, onDelete }) => {
   const [checked, setChecked] = useState(false);
   const [openMoreMenuId, setOpenMoreMenuId] = useState(null);
   const moreMenuRef = useRef(null);
@@ -27,8 +27,12 @@ const MemberTable = ({ members, openModal }) => {
   };
 
   const handleEditMember = (id) => {
-    console.log(id);
     openModal(id);
+    setOpenMoreMenuId(null);
+  };
+
+  const handleDeleteMember = (id) => {
+    window.confirm("정말 삭제하시겠습니까?") && onDelete(id);
     setOpenMoreMenuId(null);
   };
 
@@ -107,7 +111,10 @@ const MemberTable = ({ members, openModal }) => {
                         수정
                       </MoreMenuItem>
                       <Divider />
-                      <MoreMenuItem $danger onClick={() => console.log("삭제")}>
+                      <MoreMenuItem
+                        $danger
+                        onClick={() => handleDeleteMember(member.id)}
+                      >
                         삭제
                       </MoreMenuItem>
                     </MoreMenu>

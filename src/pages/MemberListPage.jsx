@@ -46,10 +46,23 @@ const MemberListPage = () => {
     closeMemberModal();
   };
 
+  const handleDeleteMember = (id) => {
+    console.log(id);
+    const existingMembers = JSON.parse(localStorage.getItem("members")) || [];
+    const newMembers = existingMembers.filter((member) => member.id !== id);
+    localStorage.setItem("members", JSON.stringify(newMembers));
+    setMembers(newMembers);
+    closeMemberModal();
+  };
+
   return (
     <div>
       <Header onClickPlusButton={openMemberModal} />
-      <MemberTable members={members} openModal={openMemberModal} />
+      <MemberTable
+        members={members}
+        openModal={openMemberModal}
+        onDelete={handleDeleteMember}
+      />
     </div>
   );
 };

@@ -227,6 +227,12 @@ const Th = styled.th`
     align-items: center;
     justify-content: space-between;
   }
+
+  &:first-child,
+  &:last-child {
+    width: 1px; /* 내부 요소 크기에 맞게 최소화 */
+    white-space: nowrap;
+  }
 `;
 
 const FilterIcon = styled.div`
@@ -276,14 +282,23 @@ const Td = styled.td`
   border-right: 1px solid #0000000f;
   vertical-align: middle;
 
+  width: auto;
+  white-space: nowrap;
+
   div {
     display: flex;
     justify-content: space-between;
     align-items: center;
   }
 
+  &:nth-last-child(2) {
+    border-right: none;
+  }
+
+  &:first-child,
   &:last-child {
-    border-left: none;
+    width: 1px;
+    white-space: nowrap;
   }
 `;
 
@@ -295,7 +310,7 @@ const MoreMenu = styled.div`
   border-radius: 10px;
   box-shadow: 0px 9px 28px 8px #0000000d;
 
-  width: 100%;
+  width: 200px;
   padding: 4px;
   z-index: 100;
 

@@ -6,39 +6,13 @@ import MoreButton from "../common/MoreButton";
 const MemberTable = ({ members, openModal, onDelete }) => {
   const [checked, setChecked] = useState(false);
   const [openMoreMenuId, setOpenMoreMenuId] = useState(null);
-
   const moreMenuRef = useRef(null);
-  const filterMenuRef = useRef(null);
 
-  const [openFilter, setOpenFilter] = useState(null);
-  const [filters, setFilters] = useState({
-    name: [],
-    address: [],
-    memo: [],
-    joinDate: [],
-    job: [],
-    emailAgreement: [],
-  });
-
-  const filteredMembers = members.filter((member) =>
-    Object.keys(filters).every(
-      (key) => filters[key].length === 0 || filters[key].includes(member[key])
-    )
-  );
-
-  // 클릭 감지 후 메뉴 닫기
+  // 바깥 클릭 감지 후 메뉴 닫기
   useEffect(() => {
     function handleClickOutside(event) {
-      // MoreMenu 바깥 클릭 감지
       if (moreMenuRef.current && !moreMenuRef.current.contains(event.target)) {
         setOpenMoreMenuId(null);
-      }
-      // FilterMenu 바깥 클릭 감지
-      if (
-        filterMenuRef.current &&
-        !filterMenuRef.current.contains(event.target)
-      ) {
-        setOpenFilter(null);
       }
     }
 
@@ -62,22 +36,6 @@ const MemberTable = ({ members, openModal, onDelete }) => {
     setOpenMoreMenuId(null);
   };
 
-  // 필터링
-  const toggleFilterMenu = (field) => {
-    setOpenFilter((prev) => (prev === field ? null : field));
-  };
-
-  const handleFilterChange = (field, value) => {
-    setFilters((prevFilters) => {
-      const currentValues = prevFilters[field] || [];
-      const updatedValues = currentValues.includes(value)
-        ? currentValues.filter((v) => v !== value)
-        : [...currentValues, value];
-
-      return { ...prevFilters, [field]: updatedValues };
-    });
-  };
-
   return (
     <WrapperTable>
       <Table>
@@ -89,63 +47,48 @@ const MemberTable = ({ members, openModal, onDelete }) => {
                 onChange={() => setChecked(!checked)}
               />
             </Th>
-            {[
-              "name",
-              "address",
-              "memo",
-              "joinDate",
-              "job",
-              "emailAgreement",
-            ].map((field, index) => (
-              <Th key={index}>
-                <div>
-                  {field === "name"
-                    ? "이름"
-                    : field === "address"
-                    ? "주소"
-                    : field === "memo"
-                    ? "메모"
-                    : field === "joinDate"
-                    ? "가입일"
-                    : field === "job"
-                    ? "직업"
-                    : field === "emailAgreement"
-                    ? "이메일 수신 동의"
-                    : field}
-                  <FilterIcon onClick={() => toggleFilterMenu(field)}>
-                    <img src="assets/png/filter-icon.png" alt="filter" />
-                  </FilterIcon>
-                  {openFilter === field && (
-                    <FilterMenu ref={filterMenuRef}>
-                      {Array.from(new Set(members.map((m) => m[field]))).map(
-                        (value) => (
-                          <FilterItem key={value}>
-                            <Checkbox
-                              checked={filters[field].includes(value)}
-                              onChange={() => handleFilterChange(field, value)}
-                              label={
-                                field === "emailAgreement"
-                                  ? value
-                                    ? "선택됨"
-                                    : "선택 안함"
-                                  : value
-                              }
-                            />
-                          </FilterItem>
-                        )
-                      )}
-                    </FilterMenu>
-                  )}
-                </div>
-              </Th>
-            ))}
-            <Th> </Th>
+            <Th>
+              <div>
+                이름
+                <img src="assets/png/dropdown-trigger.png" alt="filter" />
+              </div>
+            </Th>
+            <Th>
+              <div>
+                주소
+                <img src="assets/png/dropdown-trigger.png" alt="filter" />
+              </div>
+            </Th>
+            <Th>
+              <div>
+                메모
+                <img src="assets/png/dropdown-trigger.png" alt="filter" />
+              </div>
+            </Th>
+            <Th>
+              <div>
+                가입일
+                <img src="assets/png/dropdown-trigger.png" alt="filter" />
+              </div>
+            </Th>
+            <Th>
+              <div>
+                직업
+                <img src="assets/png/dropdown-trigger.png" alt="filter" />
+              </div>
+            </Th>
+            <Th>
+              <div>
+                이메일 수신 동의
+                <img src="assets/png/dropdown-trigger.png" alt="filter" />
+              </div>
+            </Th>
           </tr>
         </thead>
         <tbody>
-          {filteredMembers.map((member) => (
+          {members.map((member) => (
             <Tr key={member.id}>
-              <Td>
+              <Td $first={true}>
                 <Checkbox
                   checked={checked}
                   onChange={() => setChecked(!checked)}
@@ -157,10 +100,8 @@ const MemberTable = ({ members, openModal, onDelete }) => {
               <Td>{member.joinDate}</Td>
               <Td>{member.job}</Td>
               <Td>
-                <Checkbox checked={member.emailAgreement} readOnly={true} />
-              </Td>
-              <Td>
                 <div style={{ position: "relative" }}>
+                  <Checkbox checked={member.emailAgreement} readOnly={true} />
                   <MoreButton
                     onClick={() => handleClickMoreButton(member.id)}
                   />
@@ -210,6 +151,7 @@ const Th = styled.th`
   text-align: left;
   font-weight: 600;
   font-size: 0.9rem;
+  white-space: nowrap;
 
   &:not(:first-child):not(:last-child)::after {
     content: "";
@@ -224,46 +166,15 @@ const Th = styled.th`
 
   div {
     display: flex;
-    align-items: center;
     justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.2rem;
   }
-`;
 
-const FilterIcon = styled.div`
-  cursor: pointer;
   img {
-    width: 1.3em;
+    width: 1.3rem;
     height: 1.3rem;
   }
-`;
-
-const FilterMenu = styled.div`
-  position: absolute;
-  top: 110%;
-  left: 0;
-  background: white;
-  border-radius: 10px;
-  box-shadow: 0px 9px 28px 8px #0000000d, 0px 3px 6px -4px #0000001f,
-    0px 6px 16px 0px #00000014;
-
-  width: auto;
-  min-width: 90%;
-
-  padding: 10px;
-  z-index: 100;
-  display: flex;
-  flex-direction: column;
-  gap: 5px;
-`;
-
-const FilterItem = styled.div`
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
-  gap: 10px;
-  font-size: 14px;
-  cursor: pointer;
 `;
 
 const Tr = styled.tr`
@@ -271,9 +182,9 @@ const Tr = styled.tr`
 `;
 
 const Td = styled.td`
-  padding: 5px 10px;
+  padding: 10px;
   font-size: 0.9rem;
-  border-right: 1px solid #0000000f;
+  border-right: ${({ $first }) => ($first ? "1px solid #0000000f" : "none")};
   vertical-align: middle;
 
   div {
@@ -281,19 +192,16 @@ const Td = styled.td`
     justify-content: space-between;
     align-items: center;
   }
-
-  &:last-child {
-    border-left: none;
-  }
 `;
 
 const MoreMenu = styled.div`
   position: absolute;
-  top: 120%;
+  top: 150%;
   right: 0;
   background: white;
-  border-radius: 10px;
-  box-shadow: 0px 9px 28px 8px #0000000d;
+  border-radius: 12px;
+  box-shadow: 0px 9px 28px 8px #0000000d, 0px 3px 6px -4px #0000001f,
+    0px 6px 16px 0px #00000014;
 
   width: 100%;
   padding: 4px;
@@ -301,11 +209,12 @@ const MoreMenu = styled.div`
 
   display: flex;
   flex-direction: column;
+  gap: 1px;
 `;
 
 const MoreMenuItem = styled.div`
   width: 100%;
-  padding: 10px;
+  padding: 10px 16px;
   font-size: 14px;
   cursor: pointer;
   color: ${({ $danger }) => ($danger ? "red" : "black")};
@@ -319,6 +228,7 @@ const Divider = styled.div`
   width: 100%;
   height: 1px;
   background: #e3e3e3;
+  margin: 0 4px;
 `;
 
 export default MemberTable;

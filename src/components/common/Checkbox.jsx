@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import styled from "styled-components";
 
-const Checkbox = ({ checked, onChange, readOnly = false }) => {
+const Checkbox = ({ checked, onChange, readOnly = false, label }) => {
   return (
     <WrapperCheckbox>
       <input
@@ -11,6 +11,7 @@ const Checkbox = ({ checked, onChange, readOnly = false }) => {
         {...(readOnly ? { defaultChecked: checked } : { checked, onChange })}
       />
       <StyledCheckbox $checked={checked} />
+      {label && <span>{label}</span>}
     </WrapperCheckbox>
   );
 };
@@ -21,6 +22,10 @@ Checkbox.propTypes = {
 };
 
 const WrapperCheckbox = styled.label`
+  display: flex;
+  align-items: center;
+  gap: 5px;
+
   padding-top: 2px;
   .hidden-checkbox {
     display: none;

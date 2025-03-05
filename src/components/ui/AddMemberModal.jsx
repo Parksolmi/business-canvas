@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import Modal from "../common/Modal";
 import Input from "../common/Input";
@@ -17,6 +17,10 @@ const AddMemberModal = ({ isOpen, onClose, onSave }) => {
     emailAgreement: false,
     joinDate: null,
   });
+  const [isSelectOpen, setIsSelectOpen] = useState(false);
+
+  const datepickerRef = useRef(null);
+  const selectRef = useRef(null);
 
   const handleChange = (field, value) => {
     setNewMember((prev) => ({ ...prev, [field]: value }));
@@ -25,6 +29,27 @@ const AddMemberModal = ({ isOpen, onClose, onSave }) => {
   // 버튼 활성화 유효성 검사
   const isFormValid =
     newMember.name.trim() !== "" && newMember.joinDate !== null;
+
+  // 바깥 클릭 감지 핸들러
+  useEffect(() => {
+    function handleClickOutside(event) {
+      if (
+        datepickerRef.current &&
+        !datepickerRef.current.contains(event.target)
+      ) {
+        datepickerRef.current?.close?.(); // DatePicker 닫기
+      }
+      if (selectRef.current && !selectRef.current.contains(event.target)) {
+        selectRef.current?.close?.();
+        setIsSelectOpen(false); //select 닫기
+      }
+    }
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
 
   return (
     <Modal
@@ -59,19 +84,21 @@ const AddMemberModal = ({ isOpen, onClose, onSave }) => {
               onChange={(e) => handleChange("memo", e.target.value)}
             />
           </WrapField>
-          <WrapField>
+          <WrapField ref={datepickerRef}>
             <Label text="가입일" isRequired={true} />
             <CustomDatePicker
               selectedDate={newMember.joinDate}
               onChange={(date) => handleChange("joinDate", date)}
             />
           </WrapField>
-          <WrapField>
+          <WrapField ref={selectRef}>
             <Label text="직업" />
             <Select
               options={["개발자", "PO", "디자이너"]}
               selected={newMember.job}
               onChange={(job) => handleChange("job", job)}
+              isOpen={isSelectOpen}
+              setIsOpen={setIsSelectOpen}
             />
           </WrapField>
           <WrapField>

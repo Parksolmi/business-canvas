@@ -3,8 +3,7 @@ import styled from "styled-components";
 
 const options = ["개발자", "PO", "디자이너"];
 
-const Select = ({ selected, onChange }) => {
-  const [isOpen, setIsOpen] = useState(false);
+const Select = ({ selected, onChange, isOpen, setIsOpen }) => {
   const [selectedOption, setSelectedOption] = useState(selected || options[0]);
 
   const handleSelect = (option) => {

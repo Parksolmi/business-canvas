@@ -31,15 +31,15 @@ const StyledMoreButton = styled.button`
   }
 
   &:hover {
-    background: var(--Button-colorBgTextHover, #0000000f);
+    background: ${({ theme }) => theme.colors.divider};
   }
   &:active {
-    background: var(--Button-colorBgTextHover, #0000000f);
+    background: ${({ theme }) => theme.colors.divider};
   }
 
   &:disabled {
     cursor: default;
-    background: var(--Button-colorBgTextHover, #0000000f);
+    background: ${({ theme }) => theme.colors.divider};
   }
 `;
 

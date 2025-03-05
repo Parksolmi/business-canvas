@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import styled from "styled-components";
+import { css } from "styled-components";
 
 const options = ["개발자", "PO", "디자이너"];
 
@@ -41,13 +42,13 @@ const Select = ({ selected, onChange, isOpen, setIsOpen }) => {
 
 const SelectWrapper = styled.div`
   position: relative;
-  width: 160px;
+  width: 200px;
 `;
 
 const SelectBox = styled.div`
   width: 50%;
   padding: 10px 12px;
-  border: 1px solid #e3e3e3;
+  border: 1px solid ${({ theme }) => theme.colors.border};
   border-radius: 10px;
   font-size: 14px;
   font-family: Pretendard, sans-serif;
@@ -61,9 +62,9 @@ const SelectBox = styled.div`
   }
 
   &:hover {
-    border-color: #739fff;
-    color: #739fff;
-    background-color: #f8faff;
+    border-color: ${({ theme }) => theme.colors.primaryHover};
+    color: ${({ theme }) => theme.colors.primaryHover};
+    background-color: ${({ theme }) => theme.colors.primaryExtraLight};
 
     .icon {
       content: url("/assets/png/select-icon-hover.png");
@@ -77,7 +78,7 @@ const Dropdown = styled.ul`
   left: 0;
   width: 100%;
   background: white;
-  border: 1px solid #e3e3e3;
+  border: 1px solid ${({ theme }) => theme.colors.border};
   border-radius: 10px;
   margin-top: 5px;
   overflow: hidden;
@@ -96,16 +97,16 @@ const DropdownItem = styled.li`
   border-radius: 8px;
 
   &:hover {
-    color: black;
-    background: var(--Dropdown-controlItemBgHover, #0000000a);
+    color: ${({ theme }) => theme.colors.textDark};
+    background: ${({ theme }) => theme.colors.backgroundGray};
   }
 
-  ${({ $isSelected }) =>
+  ${({ $isSelected, theme }) =>
     $isSelected &&
-    `
-    background: #f0f7ff;
-    color: #4a7cfe;
-  `}
+    css`
+      background: ${theme.colors.primaryLight};
+      color: ${theme.colors.primary};
+    `}
 `;
 
 export default Select;

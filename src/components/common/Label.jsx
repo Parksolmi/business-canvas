@@ -27,7 +27,7 @@ const StyledLabel = styled.label`
   line-height: 24px;
   letter-spacing: 0%;
   text-align: left;
-  color: var(--colorTextTertiary, #00000073);
+  color: ${({ theme }) => theme.colors.textGray};
 
   .required {
     color: red;

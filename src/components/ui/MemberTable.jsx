@@ -220,8 +220,8 @@ const Table = styled.table`
 
   thead {
     background-color: #fafafa;
-    border-top: 1px solid var(--Table-colorSplit, #0000000f);
-    border-bottom: 1px solid var(--Table-colorSplit, #0000000f);
+    border-top: 1px solid ${({ theme }) => theme.colors.divider};
+    border-bottom: 1px solid ${({ theme }) => theme.colors.divider};
   }
 `;
 
@@ -241,7 +241,7 @@ const Th = styled.th`
     transform: translateY(-50%);
     width: 1px;
     height: 60%;
-    background-color: #0000000f;
+    background-color: ${({ theme }) => theme.colors.divider};
   }
 
   div {
@@ -295,13 +295,13 @@ const FilterItem = styled.div`
 `;
 
 const Tr = styled.tr`
-  border: 1px solid var(--Table-colorSplit, #0000000f);
+  border: 1px solid ${({ theme }) => theme.colors.divider};
 `;
 
 const Td = styled.td`
   padding: 5px 10px;
   font-size: 0.9rem;
-  border-right: 1px solid #0000000f;
+  border-right: 1px solid ${({ theme }) => theme.colors.divider};
   vertical-align: middle;
 
   width: auto;
@@ -355,7 +355,7 @@ const MoreMenuItem = styled.div`
 const Divider = styled.div`
   width: 100%;
   height: 1px;
-  background: #e3e3e3;
+  background: ${({ theme }) => theme.colors.border};
 `;
 
 export default MemberTable;

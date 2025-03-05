@@ -17,7 +17,7 @@ const Input = ({ type = "text", id, placeholder = "", value, onChange }) => {
 const StyledInput = styled.input`
   padding: 5px 12px;
   border-radius: 10px;
-  border: 1px solid var(--Input-colorBorder, #e3e3e3);
+  border: 1px solid ${({ theme }) => theme.colors.border};
 
   font-family: Pretendard;
   font-weight: 400;
@@ -30,12 +30,12 @@ const StyledInput = styled.input`
   }
 
   &:hover {
-    border: 1px solid var(--Input-colorPrimary, #4a7cfe);
+    border: 1px solid ${({ theme }) => theme.colors.primary};
   }
 
   &:focus {
     box-shadow: 0px 0px 0px 2px #4a7cfe26;
-    border: 1px solid var(--Input-colorPrimary, #4a7cfe);
+    border: 1px solid ${({ theme }) => theme.colors.primary};
   }
 `;
 

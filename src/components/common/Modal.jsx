@@ -60,7 +60,7 @@ const ModalHeader = styled.div`
   font-size: 1.2rem;
   font-weight: bold;
   padding-bottom: 10px;
-  border-bottom: 1px solid var(--colorSplit, #0000000f);
+  border-bottom: 1px solid ${({ theme }) => theme.colors.divider};
   padding: 10px;
 
   .close-button {
@@ -90,6 +90,6 @@ const ModalFooter = styled.div`
   justify-content: flex-end;
   gap: 10px;
   padding: 10px;
-  background: var(--colorFillAlter, #00000005);
-  border-top: 1px solid var(--colorSplit, #0000000f);
+  background: ${({ theme }) => theme.colors.backgroundLight};
+  border-top: 1px solid ${({ theme }) => theme.colors.divider};
 `;

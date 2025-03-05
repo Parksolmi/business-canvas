@@ -12,5 +12,5 @@ npm run start:prod
 
 ## 🔧 환경 변수 관리
 
-프로젝트에서는 **`.env.development`** 와 **`.env.production`** 파일을 통해 환경 변수를 관리합니다.  
+프로젝트에서는 **`.env.development`** 와 **`.env.production`** 파일을 통해 환경 변수를 관리하였습니다.
 보안 및 프로젝트 관리상 일반적으로 `.gitignore`에 포함하는 것이 원칙이지만, 과제 제출을 위해 해당 부분을 주석 처리하였습니다.

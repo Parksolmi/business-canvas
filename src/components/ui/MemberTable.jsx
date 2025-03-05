@@ -216,6 +216,7 @@ const Table = styled.table`
   width: 100%;
   border-collapse: collapse;
   background: white;
+  table-layout: fixed;
 
   thead {
     background-color: #fafafa;
@@ -251,7 +252,7 @@ const Th = styled.th`
 
   &:first-child,
   &:last-child {
-    width: 1px; /* 내부 요소 크기에 맞게 최소화 */
+    width: 2.5rem;
     white-space: nowrap;
   }
 `;
@@ -318,7 +319,7 @@ const Td = styled.td`
 
   &:first-child,
   &:last-child {
-    width: 1px;
+    width: 2.5rem;
     white-space: nowrap;
   }
 `;

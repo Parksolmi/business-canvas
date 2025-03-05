@@ -8,6 +8,7 @@ import Label from "../common/Label";
 import Select from "../common/Select";
 import Checkbox from "../common/Checkbox";
 import { format } from "date-fns";
+import checkLocalEnv from "../../utils/checkLocalEnv";
 
 const MemberModal = ({ isOpen, onClose, onSave, selectedId }) => {
   const [Member, setMember] = useState({
@@ -55,21 +56,23 @@ const MemberModal = ({ isOpen, onClose, onSave, selectedId }) => {
   // 기존 데이터 불러오기
   useEffect(() => {
     if (selectedId !== null) {
-      const storedMembers = JSON.parse(localStorage.getItem("members")) || [];
-      const selectedMember = storedMembers.find(
-        (member) => member.id === selectedId
-      );
+      if (checkLocalEnv()) {
+        const storedMembers = JSON.parse(localStorage.getItem("members")) || [];
+        const selectedMember = storedMembers.find(
+          (member) => member.id === selectedId
+        );
 
-      if (selectedMember) {
-        setMember({
-          id: selectedMember.id,
-          name: selectedMember.name || "",
-          address: selectedMember.address || "",
-          memo: selectedMember.memo || "",
-          job: selectedMember.job || "개발자",
-          emailAgreement: selectedMember.emailAgreement || false,
-          joinDate: selectedMember.joinDate || null,
-        });
+        if (selectedMember) {
+          setMember({
+            id: selectedMember.id,
+            name: selectedMember.name || "",
+            address: selectedMember.address || "",
+            memo: selectedMember.memo || "",
+            job: selectedMember.job || "개발자",
+            emailAgreement: selectedMember.emailAgreement || false,
+            joinDate: selectedMember.joinDate || null,
+          });
+        }
       }
     }
   }, [selectedId]);

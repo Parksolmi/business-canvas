@@ -230,6 +230,7 @@ const Th = styled.th`
   text-align: left;
   font-weight: 600;
   font-size: 0.9rem;
+  vertical-align: middle;
 
   &:not(:first-child):not(:last-child)::after {
     content: "";

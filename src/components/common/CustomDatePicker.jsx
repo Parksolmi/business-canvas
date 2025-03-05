@@ -1,25 +1,24 @@
 import React from "react";
-import ReactDatePicker from "react-datepicker";
-import "react-datepicker/dist/react-datepicker.css";
+import { DatePicker } from "antd";
+import "antd/dist/reset.css";
+import dayjs from "dayjs";
 import styled from "styled-components";
-// import { createGlobalStyle } from "styled-components";
 
 const CustomDatePicker = ({ selectedDate, onChange }) => {
   const handleChange = (date) => {
-    onChange(date);
+    onChange(date ? date.format("YYYY-MM-DD") : null);
   };
 
   return (
     <DatePickerWrapper>
       <StyledDatePicker
-        selected={selectedDate ? new Date(selectedDate) : null}
+        value={selectedDate ? dayjs(selectedDate, "YYYY-MM-DD") : null}
         onChange={handleChange}
-        dateFormat="yyyy-MM-dd"
-        placeholderText="Select date"
-        popperPlacement="bottom-start"
-        calendarClassName="custom-calendar"
+        format="YYYY-MM-DD"
+        placeholder="Select date"
+        popupClassName="custom-calendar"
+        showToday={false}
       />
-      <CalendarIcon src="/assets/png/calendar-icon.png" alt="calendar" />
     </DatePickerWrapper>
   );
 };
@@ -30,88 +29,20 @@ const DatePickerWrapper = styled.div`
   position: relative;
   display: flex;
   align-items: center;
-  width: 240px;
+  width: 250px;
 `;
 
-const StyledDatePicker = styled(ReactDatePicker)`
-  width: 100%;
-  padding: 10px 12px;
-  border: 1px solid #e3e3e3;
-  border-radius: 10px;
+const StyledDatePicker = styled(DatePicker)`
+  width: 70%;
+  border: 1px solid #d1d5db !important;
+  border-radius: 8px !important;
   font-size: 14px;
-  outline: none;
-  background-color: white;
-  cursor: pointer;
   font-family: Pretendard, sans-serif;
+  transition: box-shadow 0.2s ease-in-out;
 
-  &:focus {
-    border-color: #4a7cfe;
-    box-shadow: 0 0 0 2px rgba(74, 124, 254, 0.2);
-  }
-
+  &:focus,
   &:hover {
-    border: 1px solid var(--Input-colorPrimary, #4a7cfe);
+    border-color: #4a90e2 !important;
+    box-shadow: 0 0 0 3px rgba(74, 144, 226, 0.2) !important;
   }
 `;
-
-const CalendarIcon = styled.img`
-  position: absolute;
-  right: 50px;
-  color: #aaa;
-  pointer-events: none;
-  width: 1.2rem;
-`;
-
-// ///~~~~~~~~~~~
-// export const DatePickerStyles = createGlobalStyle`
-//   /* 캘린더 컨테이너 */
-//   .react-datepicker {
-//     border-radius: 12px;
-//     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-//     font-family: Pretendard, sans-serif;
-//     border: 1px solid #e3e3e3;
-//   }
-
-//   /* 캘린더 헤더 */
-//   .react-datepicker__header {
-//     background: white;
-//     border-bottom: none;
-//     padding: 10px 0;
-//   }
-
-//   .react-datepicker__current-month {
-//     font-size: 16px;
-//     font-weight: bold;
-//   }
-
-//   .react-datepicker__navigation {
-//     top: 10px;
-//   }
-
-//   /* 날짜 스타일 */
-//   .react-datepicker__day {
-//     border-radius: 6px;
-//     width: 32px;
-//     height: 32px;
-//     display: inline-flex;
-//     justify-content: center;
-//     align-items: center;
-//     font-size: 14px;
-//     color: #333;
-//     transition: background 0.2s;
-//   }
-
-//   .react-datepicker__day:hover {
-//     background: #e3e3e3;
-//   }
-
-//   .react-datepicker__day--selected {
-//     background: #4a7cfe;
-//     color: white;
-//     font-weight: bold;
-//   }
-
-//   .react-datepicker__day--today {
-//     border: 1px solid #4a7cfe;
-//   }
-// `;
